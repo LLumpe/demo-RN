@@ -85,7 +85,7 @@ export const ModalForm = ({ visible, onClose, onSubmit, placeholder }) => {
     >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Add tips</Text>
+          <Text style={styles.modalTitle}>Add Tips</Text>
 
           <View style={styles.modalInputContainer}>
             <Text style={styles.modalInputText}>$</Text>
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   CancelText: {
-    color: "gray",
+    color: "#E2E2E2",
     fontSize: 14,
     fontWeight: 600,
     textAlign: "center",
