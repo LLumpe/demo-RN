@@ -21,27 +21,33 @@ export const ModalForm = ({ visible, onClose, onSubmit, placeholder }) => {
     { percentage: 25, value: 3.98 },
   ];
 
-  const [selectKey, setSelectKey] = useState(0); // 当前选择tips
+  // 当前选择tips
+  const [selectKey, setSelectKey] = useState(0);
 
+  //input修改回调
   const handleInputChange = (text) => {
     setInputValue(text);
   };
 
+  //Add按压回调
   const handleAddPress = () => {
     alert(inputValue);
     onSubmit(inputValue); // 提交输入的内容
     setInputValue(""); // 清空输入框
   };
 
+  //Cancel按压回调
   const handleCancelPress = () => {
     onClose(); // 关闭 Modal
     setInputValue(""); // 清空输入框
   };
 
+  //tips选择回调
   const handleSelect = (index) => {
     setSelectKey(index); // 更新选中的项
   };
 
+  //tips渲染列表
   const renderPercentageItem = (item, index) => {
     const isSelected = selectKey === index;
     return (
@@ -142,8 +148,9 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: "white",
     padding: 30,
-    borderRadius: 10,
-    width: 300,
+    paddingLeft: 40,
+    borderRadius: 20,
+    width: 320,
     alignItems: "center",
   },
   modalInputContainer: {
@@ -160,21 +167,23 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     fontSize: 20,
     fontWeight: 600,
-    color: "gray",
+    color: "#3C3C3C",
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
+    color: "#2F2F2F",
   },
   input: {
     width: "100%",
     height: 40,
     backgroundColor: "ghostwhite",
     borderColor: "#ddd",
-    borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 10,
+    fontWeight: 600,
+    fontSize: 18,
   },
   modalChoose: {
     width: "100%",
@@ -209,6 +218,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   buttonContainer: {
+    marginTop: 20,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
