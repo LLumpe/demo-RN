@@ -1,63 +1,90 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Platform,
+  Button,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { HelloWave } from "@/components/HelloWave";
+import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import React, { useState } from "react";
+import { ModalForm } from "@/components/ModalForm";
 
 export default function HomeScreen() {
+  /* 弹出modalform */
+  const handlePress = () => {
+    setModalVisible(true);
+  };
+
+  /* 弹出框是否显示 */
+  const [modalVisible, setModalVisible] = useState(false);
+
+  /**
+   * @param
+   * @return {}
+   */
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  /**
+   * @param
+   * @return {}
+   */
+  const handleModalSubmit = (value: any) => {
+    console.log("value", value);
+  };
+
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require("@/assets/images/partial-react-logo.png")}
           style={styles.reactLogo}
         />
-      }>
+      }
+    >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
+        <ThemedText type="subtitle">Step 1: Get started !</ThemedText>
+        <ThemedText type="defaultSemiBold">
+          Click the button below to view the pop-up box
         </ThemedText>
+        <TouchableOpacity
+          style={styles.modalButton}
+          onPressIn={handlePress} // 按钮按下时触发
+          activeOpacity={0.7} // 点击时透明度效果
+        >
+          <Text style={styles.buttonText}>Click Me</Text>
+        </TouchableOpacity>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
+
+      <View>
+        {/* 使用封装的 ModalForm 组件 */}
+        <ModalForm
+          visible={modalVisible}
+          onClose={handleModalClose}
+          onSubmit={handleModalSubmit}
+          placeholder="add amount..."
+        />
+      </View>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   stepContainer: {
@@ -69,6 +96,21 @@ const styles = StyleSheet.create({
     width: 290,
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    position: "absolute",
+  },
+
+  modalButton: {
+    marginTop: 20,
+    backgroundColor: "#7FE0FE",
+    paddingVertical: 16,
+    paddingHorizontal: 28,
+    borderRadius: 40,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: 600,
+    textAlign: "center",
   },
 });
